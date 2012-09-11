@@ -34,6 +34,7 @@ Creating Plone add-ons and functionality
    images/index
    misc/index
    zope_secrets/index
+   helloworld/index
 
 Plone Theme Development 
 -------------------------------------------
