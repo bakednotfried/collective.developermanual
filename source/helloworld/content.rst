@@ -36,7 +36,7 @@ Install code template with ZopeSkel
 This creates a few files, and edits some others. For our purposes, the most important one is **person.py** contained in the **src/example.helloworld/example/helloworld/content/** directory. Open this file in your text editor.
 
 
-Extend the content-type
+Build the content-type
 ========================
 
 Edit PersonSchema inside *person.py* so it looks like this.::
@@ -54,42 +54,10 @@ Edit PersonSchema inside *person.py* so it looks like this.::
             ),
         ),
     
-        atapi.StringField(
-            name='hello_number',
-            required=False,
-            widget=atapi.StringWidget(
-                label='Number', 
-                description='Please give us your number.', 
-                visible= {'view': 'visible', 'edit': 'visible'},
-            ),
-        ),
-    
-        atapi.BooleanField(
-            name='available',
-            required=False,
-            default=True,
-            widget=atapi.BooleanWidget(
-                label='Available?', 
-                description='Are you available?', 
-                format='checkbox',
-            ),
-        ),
-        
-        atapi.TextField(
-            name='hello_notes',
-            required=False,
-            widget=atapi.TextAreaWidget(
-                label='Notes', 
-                description='General purpose notes area.',
-                rows=10,
-                visible= {'view': 'visible', 'edit': 'visible'},
-            ),
-        ),
-    
     ))
     
     
-This adds a few fields to our schema, including a string attribute named **hello_name**. It is required, and is visible on both the view and edit pages.
+This adds a new field to our schema named **hello_name**. It is a string filed, and is required. It is visible on both the view and edit pages.
 
 Restart your instance to have access to the new content-type.::
 
@@ -112,7 +80,9 @@ You should see an *info* message telling you your changes were saved, and a new 
 
 Notice the **State** menu on the right hand side of the green bar. It tells you your content is **Private**, meaning only you can see it. You need to select **Publish** from the *State* menu.
 
-Also notice the url of the page. It is based on the Title of the object, with two main differences. The letters are all lower case, and spaces are turned into dashes. 
+Also notice the url of the page. It is based on the Title of the object, with two main differences. The letters are all lower case, and spaces are turned into dashes.::
+
+    http://localhost:8080/Plone/my-hello-world-person/
 
 For more information about content in Plone, see the :doc:`Content management </content/index>` section of this manual. For more information about content types, see :doc:`Content Types </content/types>`.
     

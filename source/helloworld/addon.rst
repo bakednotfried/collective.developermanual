@@ -35,9 +35,9 @@ Before we move one, lets examine our directory structure. We have **env-27**, ou
 .. image:: images/directory_structure.png
    :alt: image of directory structure
    
-Looking further into *example.helloworld*, we have the **example** directory which contains the **helloworld** directory. Most of the changes we make while extending Plone will happen in the *helloworld* directory.
+Looking further into *example.helloworld*, we have the **example** directory which contains the **helloworld** directory. 
 
-In the examples below, we sometimes refer to the *helloworld* directory as the **product directory**. It contains the **browser** directory.
+In the examples below, we sometimes refer to the *helloworld* directory as the **product directory**. It contains the **browser** directory. Most of the changes we make take place in the *browser* directory.
     
 Here it is from the command-line.::
 
@@ -107,7 +107,11 @@ To use the code in your project, you'll need to reference it in your buildout.cf
     or
     ./bin/instance restart
 
-Note: If you are running ZEO instead of a stand-alone instance you'll need to use something like ./bin/client1 restart
+Note:: 
+
+    If you are running ZEO instead of a stand-alone instance you'll need to use something like:: 
+    
+        ./bin/client1 restart
     
 Now you can install your product from the **Add-ons** are of **Site Setup**. You can access Site Setup from the **admin** menu in the top right corner of your Plone site. 
 
@@ -121,3 +125,4 @@ You can also access Site Setup using an url like
 
     .. image:: images/addons.png
 
+Now that you created and installed an add-on package, you can use it to extend Plone.

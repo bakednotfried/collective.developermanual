@@ -12,13 +12,13 @@ In this tutorial we add a browser view. Plone uses views to display dynamic cont
 
 There are now two ways to add views to Plone; Zope 3 and Grok. This tutorial covers the Zope 3 method. For more information about views, see the :doc:`Views and viewlets </views/index>` section of the developer manual. 
 
-There are 3 parts to our view; a Python class, a page template, and a ZCML configuration. We add two files to the browser directory, and register our view in configure.zcml.
+There are 3 parts to our view; a Python class, a page template, and a ZCML registration. We will add the two files and edit configure.zcml in the **browser** directory.
 
 
 Register the view
 ==================
 
-- Edit the **configure.zcml** file in the **browser** directory. Open *configure.zcml* in your favorite editor and add this just before the closing </configure> tag.::
+- Edit the **configure.zcml** file in the **browser** directory. Open *configure.zcml* in your editor and add this just before the closing </configure> tag.::
 
     <browser:page
         name="hello_world_view"
@@ -29,12 +29,14 @@ Register the view
 
 .. Note::
 
-    We use the **name** attribute to access the view.
-    The **for** attribute allows us to limit context to a particular interface. With the asterisk, we are not limiting access.
-    The **permission** attribute allows us to limit access with a permission. In this case, we have a wide open permission.
-    The **class** attribute points to our Python class. Here, we have a **HelloWorldView** class in a file named **hello_world_view.py**. 
+    - We use the **name** attribute to access the view.
+    - The **for** attribute allows us to limit context to a particular interface. With the asterisk, we are not limiting access.
+    - The **permission** attribute allows us to limit access with a permission. In this case, we have a wide open permission.
+    - The **class** attribute points to our Python class. Here, we have a **HelloWorldView** class in a file named **hello_world_view.py**. 
 
-- If you have not already done so, you need to define the browser namespace in configure.zcml by adding **xmlns:browser="http://namespaces.zope.org/browser"** to the configure tag. 
+- If you have not already done so, you need to define the browser namespace in configure.zcml by adding this to the configure tag.:: 
+
+    xmlns:browser="http://namespaces.zope.org/browser" 
 
 If you also went through the :doc:`simple form tutorial </helloworld/form>`, then *configure.zcml* should look something like this when you are done.::
 
@@ -85,11 +87,11 @@ Create Python class
     
 
 
-We use the **template** attribute to register our page template **hello_world_view.pt**. 
+Our BrowserView class is a Python callable. The __call__() method is the entry point. In it, we add a **hello_name** attribute to the view. Our page template will use the value of hello_name when the page is rendered.
 
-The __call__() method is the entry point for executing view code. In it, we add a **hello_name** attribute to the view. Our page template will use the value of hello_name when the page is rendered.
+The logic in our class is pretty simple. If our context has a hello_name attribute, then we use its value in our view. If not, we use the string 'World'.
 
-The logic in our class is pretty simple. If our context has a hello_name attribute, then we use its value in our view. If context does not have a hello_name attribute, we use the string 'World'.
+In the class, we also define our page template **hello_world_view.pt** and save it in the **template** attribute. 
 
 
 Create page template
@@ -128,7 +130,7 @@ The **metal:use-macro** statement tells ZPT to use **main_template** to draw our
 
 The master template *main_template* contains predefined **slots**, or areas on the page, that we can fill with content from our template.
 
-Anything between the::
+Anything in our code, between the::
 
     <metal:block fill-slot="content-core">
     
@@ -136,13 +138,13 @@ and::
 
     </metal:block>
     
-tags is displayed in the **content-core** area of our page.
+gets put in the **content-core** area of main_template and is displayed on our page.
 
-We also have access to the attributes of our view class in the **view** namespace. In our case, we are interested in **view/hello_name**.::
+We also have access to our view class using the **view** namespace. In our case, we are interested in **view/hello_name**.::
 
     <span tal:content="view/hello_name">this gets replaced</span>
     
-In our Python class, we defined a hello_name attribute. This code says take the value of the hello_name attribute and use it as the content for the span tag. So, the string "this gets replaced"" does in fact get replaced.
+In our Python class, we defined a *hello_name* attribute. This code says take the value of the *view/hello_name* attribute and use it as the content for the span tag. So, the string "this gets replaced" gets replaced with the value of *view/hello_name*.
 
 
 
@@ -151,7 +153,7 @@ Access the view
 
 To access the view, add @@hello_world_view to the end of an object url in your plone site.::
 
-    http://localhost:8080/Plone/a-hello-world-object/my-hello-world-person/@@hello_world_view
+    http://localhost:8080/Plone/my-hello-world-person/@@hello_world_view
     
 Since our object has a *hello_name* attribute, the value is displayed along with the word *Hello*.
 

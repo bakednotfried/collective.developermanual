@@ -16,7 +16,7 @@ The tutorial was created on a unix-like system, but should apply in general to a
 
 There are many ways to install Plone. 
 
-    In the examples, we build a new version of Python 2.7, and create a virtual_env using the new Python. We then install Plone within the virtual_env using ZopeSkel 2.21.2. 
+    In the examples, we build a new version of Python 2.7 and create a virtual_env using the new Python. We then install Plone within the virtual_env using ZopeSkel 2.21.2. 
     
     This can be a lot of work, just to try some hello world examples in Plone. 
     

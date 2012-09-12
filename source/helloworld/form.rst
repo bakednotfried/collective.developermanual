@@ -8,29 +8,33 @@ A simple tutorial introducing the basics of Plone development.
 
 .. contents:: :local:
 
-There are two steps to building a simple form; registering the form in **configure.zcml**, and writing the Python code to handle the form. 
+In this tutorial we add a simple form. 
+
+There are many ways to add a form to Plone. In this tutorial, we use z3c.form.
+
+There are two steps to building a simple z3c.form form; registering the form in **configure.zcml**, and writing the Python code to handle the form. 
 
 
 Register the form
 ==================
 
-We'll call our form page **hello_world_form**. We need to register it in a configure.zcml file.
+To register our form, we need to add an entry in configure.zcml.
 
-- Edit the **configure.zcml** file in the **browser** directory. Open *configure.zcml* in your favorite editor and add this just before the closing </configure> tag.::
+- Edit the **configure.zcml** file in the **browser** directory. Open *configure.zcml* in your editor and add this just before the closing </configure> tag.::
 
     <browser:page
         name="hello_world_form"
         for="*"
-        class=".hello_world_form.HelloWorldFormView"
         permission="zope2.View"
+        class=".hello_world_form.HelloWorldFormView"
         />
 
 .. Note::
 
     - We use the **name** attribute to access the form.
-    - The asterisk in the **for** attribute allows this form to be called in any context, or with any interface. 
-    - The **class** attribute defines a **HelloWorldFormView** view class in a file called **hello_world_form.py**. This class is used when our form is accessed.
-    - The **permission** attribute allows us to limit access to our form. In this case, we give everyone permission.
+    - The **for** attribute allows us to limit context to a particular interface. With the asterisk, we are not limiting access.
+    - The **permission** attribute allows us to limit access with a permission. In this case, we have a wide open permission.
+    - The **class** attribute points to our Python class. Here, we have a **HelloWorldFormView** class in a file named **hello_world_form.py**. 
     
 
 Our entry uses the **browser** prefix, so we need to define it in configure.zcml before we can use it. 
@@ -73,7 +77,7 @@ Now we need to create the code to handle our form.
 
     touch hello_world_form.py
     
-Open the *hello_world_form.py* file in your favorite editor and add the following code.
+Open the *hello_world_form.py* file in your editor and add the following code.
 
 - Define our form field in an interface.
 
@@ -158,18 +162,20 @@ The fun parts here are the two button handlers; **handleSave** and **handleCance
 Access the form
 ================
 
-You can access the form with an url like
+You can access the form with an url like::
 
-    *http://localhost:8080/Plone/@@person*
+    http://localhost:8080/Plone/@@hello_world_form 
+
 
 .. image:: images/helloworldformblank.png
     
 .. image:: images/jimbobform.png
 
+
 Type in a name and click *Save*, or just click *Cancel*.
     
-.. image:: images/hellojimbobform.png
-
 .. image:: images/helloworldform.png
+
+.. image:: images/hellojimbobform.png
 
 
